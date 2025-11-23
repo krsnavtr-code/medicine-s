@@ -2,7 +2,6 @@ import express from 'express';
 import { body } from 'express-validator';
 import { getPublicProfile } from '../controllers/profile.controller.js';
 import { submitContactForm } from '../controllers/contact.controller.js';
-import { getAllPublicSkills } from '../controllers/skill.controller.js';
 
 const router = express.Router();
 
@@ -29,7 +28,5 @@ router.post(
   submitContactForm
 );
 
-// Public route to get all skills
-router.get('/skills', getAllPublicSkills);
-
 export default router;
+ 
