@@ -47,7 +47,7 @@ const templates = {
         <p><strong>Message:</strong><br>${data.message || 'No message provided'}</p>
       </div>
       <p>We appreciate your interest and will respond within 24-48 hours.</p>
-      <p>Best regards,<br>${process.env.EMAIL_FROM_NAME || 'Your Portfolio Team'}</p>
+      <p>Best regards,<br>${process.env.EMAIL_FROM_NAME || 'Your Medicin Team'}</p>
     </div>
   `,
     contactAdmin: (data) => `
@@ -106,7 +106,7 @@ const sendEmail = async ({ to, subject, template, data = {} }) => {
 
         // Define email options
         const mailOptions = {
-            from: `"${process.env.EMAIL_FROM_NAME || 'Portfolio'}" <${fromEmail}>`,
+            from: `"${process.env.EMAIL_FROM_NAME || 'Medicin'}" <${fromEmail}>`,
             to: to,
             subject: subject || 'No Subject',
             html,

@@ -92,7 +92,7 @@ app.get('/health', (req, res) => {
 app.get('/api/v1', (req, res) => {
   res.status(200).json({
     status: 'success',
-    message: 'Welcome to the Portfolio API',
+    message: 'Welcome to the Medicin API',
     timestamp: new Date().toISOString(),
     version: '1.0.0',
     documentation: '/api/v1/docs' // Will be added later with Swagger
