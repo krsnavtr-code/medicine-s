@@ -3,6 +3,13 @@ import slugify from 'slugify';
 
 const productSchema = new mongoose.Schema(
   {
+    // Reference to the user who created the product
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
+
     // Basic Product Information
     productType: {
       type: String,
