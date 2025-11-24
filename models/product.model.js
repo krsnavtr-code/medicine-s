@@ -29,24 +29,10 @@ const productSchema = new mongoose.Schema(
       index: true
     },
     brand: {
-      type: String,
-      required: [true, 'Brand name is required'],
-      enum: [
-        'TSA',
-        'Brand2',
-        'Brand3',
-        'Brand4',
-        'Brand5',
-        'Brand6',
-        'Brand7',
-        'Brand8',
-        'Brand9',
-        'Brand10'
-      ]
+      type: String
     },
     description: {
       type: String,
-      required: [true, 'Product description is required']
     },
     shortDescription: {
       type: String,
@@ -55,53 +41,28 @@ const productSchema = new mongoose.Schema(
 
     // Category & Subcategory
     category: {
-      type: String,
-      required: [true, 'Please select category for this product'],
-      enum: [
-        'Tablets',
-        'Capsules',
-        'Syrups',
-        'Injection',
-        'Drops',
-        'Inhalers',
-        'Ointments',
-        'Creams',
-        'Baby Care',
-        'Personal Care',
-        'Healthcare Devices',
-        'Surgical',
-        'Herbal & Ayurvedic',
-        'Homeopathy'
-      ]
+      type: String
     },
     subCategory: {
-      type: String,
-      enum: [
-        'Pain Relief', 'Fever', 'Cold & Cough', 'Allergy', 'Digestive Health',
-        'Heart Health', 'Diabetes Care', 'Women\'s Health', 'Men\'s Health',
-        'Baby Care', 'Elderly Care', 'First Aid', 'Vitamins & Supplements',
-        'Sexual Wellness', 'Skin Care', 'Hair Care', 'Oral Care', 'Eye Care',
-        'Wound Care', 'Surgical', 'Mobility Aids', 'Support & Braces',
-        'Monitoring', 'Therapeutic', 'Respiratory', 'Alternative Medicine',
-        'Homeopathy', 'Ayurvedic', 'Herbal Supplements', 'Other'
-      ]
+      type: String
     },
 
     // Pricing
     price: {
       type: Number,
-      required: [true, 'Product price is required'],
       min: [0, 'Price must be a positive number']
     },
     mrp: {
       type: Number,
-      required: [true, 'MRP is required'],
       validate: {
         validator: function(value) {
+          // If price is not set yet (during creation), skip validation
+          if (typeof this.price === 'undefined') return true;
           return value >= this.price;
         },
         message: 'MRP must be greater than or equal to selling price'
-      }
+      },
+      required: [true, 'MRP is required']
     },
     discount: {
       type: Number,
@@ -119,7 +80,6 @@ const productSchema = new mongoose.Schema(
     // Stock & Inventory
     stock: {
       type: Number,
-      required: [true, 'Stock quantity is required'],
       min: [0, 'Stock cannot be negative']
     },
     inStock: {
@@ -127,22 +87,7 @@ const productSchema = new mongoose.Schema(
       default: true
     },
     unit: {
-      type: String,
-      required: [true, 'Unit is required'],
-      enum: [
-        'Strip', 'Bottle', 'Box', 'Pack', 'Tube', 'Jar',
-        'Sachet', 'Vial', 'Ampoule', 'Capsule', 'Tablet',
-        'Syringe', 'Inhaler', 'Drop', 'Pieces', 'Pair',
-        'Set', 'Roll', 'Meter', 'Gram', 'Kilogram',
-        'Milliliter', 'Liter', 'Inch', 'Centimeter', 'Foot',
-        'Yard', 'Meter', 'Square Meter', 'Cubic Centimeter', 'Dozen',
-        'Pack of 5', 'Pack of 10', 'Pack of 20', 'Pack of 30', 'Pack of 50',
-        'Pack of 100', 'Carton', 'Can', 'Pouch', 'Packet', 'Bag', 'Tin', 'Barrel',
-        'Drum', 'Canister', 'Dispenser', 'Bowl', 'Tray', 'Blister', 'Strip of 5',
-        'Strip of 10', 'Strip of 14', 'Strip of 15', 'Strip of 20', 'Strip of 30',
-        'Bottle of 30ml', 'Bottle of 60ml', 'Bottle of 100ml', 'Bottle of 200ml',
-        'Suspension', 'Lotion', 'Solution', 'Suppository', 'Others'
-      ]
+      type: String
     },
 
     // Images
@@ -175,40 +120,27 @@ const productSchema = new mongoose.Schema(
     // Medicine Information
     saltComposition: {
       type: String,
-      required: [true, 'Salt composition is required']
     },
     manufacturer: {
       type: String,
-      required: [true, 'Manufacturer is required']
     },
     packSize: {
       type: String,
-      required: [true, 'Pack size is required']
     },
     dosageForm: {
-      type: String,
-      required: [true, 'Dosage form is required'],
-      enum: [
-        'Tablet', 'Capsule', 'Syrup', 'Injection', 'Drops', 'Inhaler',
-        'Ointment', 'Cream', 'Gel', 'Lotion', 'Spray', 'Powder',
-        'Suspension', 'Lotion', 'Solution', 'Suppository', 'Others'
-      ]
+      type: String
     },
     expiryDate: {
       type: Date,
-      required: [true, 'Expiry date is required']
     },
     storageInfo: {
       type: String,
-      required: [true, 'Storage information is required']
     },
     safetyInformation: {
       type: String,
-      required: [true, 'Safety information is required']
     },
     howToUse: {
       type: String,
-      required: [true, 'Usage instructions are required']
     },
     benefits: [{
       type: String
@@ -286,11 +218,6 @@ const productSchema = new mongoose.Schema(
     },
 
     // System Fields
-    createdBy: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'User',
-      required: true
-    },
     updatedAt: {
       type: Date,
       default: Date.now

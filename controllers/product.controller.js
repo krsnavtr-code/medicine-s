@@ -124,7 +124,7 @@ export const getProduct = catchAsync(async (req, res, next) => {
 // @access  Private/Admin
 export const createProduct = catchAsync(async (req, res, next) => {
   // Add user to req.body
-  req.body.createdBy = req.user.id;
+  req.body.user = req.user.id;
 
   // Create slug from name if not provided
   if (!req.body.slug && req.body.name) {
@@ -155,7 +155,7 @@ export const updateProduct = catchAsync(async (req, res, next) => {
   }
 
   // Make sure user is product owner or admin
-  if (product.createdBy.toString() !== req.user.id && req.user.role !== 'admin') {
+  if (product.user.toString() !== req.user.id && req.user.role !== 'admin') {
     return next(
       new ErrorResponse(
         `User ${req.user.id} is not authorized to update this product`,
@@ -197,7 +197,7 @@ export const deleteProduct = catchAsync(async (req, res, next) => {
   }
 
   // Make sure user is product owner or admin
-  if (product.createdBy.toString() !== req.user.id && req.user.role !== 'admin') {
+  if (product.user.toString() !== req.user.id && req.user.role !== 'admin') {
     return next(
       new ErrorResponse(
         `User ${req.user.id} is not authorized to delete this product`,
@@ -232,7 +232,7 @@ export const productPhotoUpload = catchAsync(async (req, res, next) => {
   }
 
   // Make sure user is product owner or admin
-  if (product.createdBy.toString() !== req.user.id && req.user.role !== 'admin') {
+  if (product.user.toString() !== req.user.id && req.user.role !== 'admin') {
     return next(
       new ErrorResponse(
         `User ${req.user.id} is not authorized to update this product`,
