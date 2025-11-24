@@ -13,6 +13,7 @@ import mediaRouter from './routes/media.routes.js';
 import blogRoutes from './routes/blog.routes.js';
 import blogCategoryRoutes from './routes/blogCategory.routes.js';
 import itCategoryRoutes from './routes/itCategory.routes.js';
+import productRoutes from './routes/product.routes.js';
 import path from 'path';
 import fs from 'fs';
 
@@ -65,6 +66,7 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1/media', mediaRouter);
 app.use('/api/v1/blog', blogRoutes);
+app.use('/api/v1/products', productRoutes);
 app.use('/api/v1', publicRouter);
 
 
