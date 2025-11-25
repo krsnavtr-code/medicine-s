@@ -142,6 +142,9 @@ const productSchema = new mongoose.Schema(
     howToUse: {
       type: String,
     },
+    useFor: {
+      type: String
+    },
     benefits: [{
       type: String
     }],

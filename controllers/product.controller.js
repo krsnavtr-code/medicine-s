@@ -155,7 +155,7 @@ export const updateProduct = catchAsync(async (req, res, next) => {
   }
 
   // Make sure user is product owner or admin
-  if (product.user.toString() !== req.user.id && req.user.role !== 'admin') {
+  if ((!product.user || product.user.toString() !== req.user.id) && req.user.role !== 'admin') {
     return next(
       new ErrorResponse(
         `User ${req.user.id} is not authorized to update this product`,
