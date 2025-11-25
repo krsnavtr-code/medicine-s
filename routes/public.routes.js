@@ -1,12 +1,9 @@
 import express from 'express';
 import { body } from 'express-validator';
-import { getPublicProfile } from '../controllers/profile.controller.js';
 import { submitContactForm } from '../controllers/contact.controller.js';
 
 const router = express.Router();
 
-// Public route to get profile data
-router.get('/profile', getPublicProfile);
 
 // Contact form submission
 router.post(
