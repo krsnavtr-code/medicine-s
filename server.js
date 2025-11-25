@@ -14,6 +14,7 @@ import blogRoutes from './routes/blog.routes.js';
 import blogCategoryRoutes from './routes/blogCategory.routes.js';
 import itCategoryRoutes from './routes/itCategory.routes.js';
 import productRoutes from './routes/product.routes.js';
+import cartRoutes from './routes/cart.routes.js';
 import path from 'path';
 import fs from 'fs';
 
@@ -44,13 +45,13 @@ const corsOptions = {
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'x-access-token'],
   exposedHeaders: ['Set-Cookie'],
   optionsSuccessStatus: 200
 };
 
-// Enable CORS with the specified options
+// Apply CORS middleware
 app.use(cors(corsOptions));
 
 // Other middleware
@@ -67,6 +68,7 @@ app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1/media', mediaRouter);
 app.use('/api/v1/blog', blogRoutes);
 app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/cart', cartRoutes);
 app.use('/api/v1', publicRouter);
 
 
