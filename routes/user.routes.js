@@ -26,12 +26,34 @@ router.use(protect);
 // User profile routes
 router.route('/me')
   .get((req, res) => {
-    res.status(200).json({
-      status: 'success',
-      data: {
-        user: req.user,
-      },
-    });
+    try {
+      if (!req.user) {
+        return res.status(401).json({
+          status: 'fail',
+          message: 'You are not logged in. Please log in to get access.'
+        });
+      }
+
+      // Remove sensitive data
+      const user = { ...req.user._doc };
+      delete user.password;
+      delete user.passwordChangedAt;
+      delete user.passwordResetToken;
+      delete user.passwordResetExpires;
+
+      res.status(200).json({
+        status: 'success',
+        data: {
+          user: user
+        }
+      });
+    } catch (error) {
+      console.error('Error in /me route:', error);
+      res.status(500).json({
+        status: 'error',
+        message: 'An error occurred while fetching user data'
+      });
+    }
   })
   .patch(updateProfile);
 
