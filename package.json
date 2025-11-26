@@ -12,7 +12,7 @@
     "url": "git+https://github.com/krsnavtr-code/t-k-p-Server.git"
   },
   "license": "ISC",
-  "author": "Krishna Avtar By TRIVIXA",
+  "author": "Krishna Avtar By sales@ayushaushadhi.com",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
